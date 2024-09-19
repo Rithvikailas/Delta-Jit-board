@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"> <!-- Make sure this path is correct -->
+    <link rel="icon" href="https://companieslogo.com/img/orig/2308.TW.D-9b98cca1.png?t=1720244490" type="image/x-icon">
+    <title>Delta Electronics JIT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url("https://lh3.googleusercontent.com/p/AF1QipM7yOs8_7ZhFSOCCGXKZLTJiiyLKlQt4FGiel3k=s1360-w1360-h1020");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JIT SYSTEM LOGIN</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" required>
+                    <option value="jit">JIT User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <input type="submit" value="Login">
+            <p class="error" id="errorMessage"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Dummy credentials check (replace with real authentication)
+            const validCredentials = {
+                'jit': 'jit',
+                'suren': 'suren'
+            };
+
+            if (validCredentials[username] === password) {
+                if (role === 'jit') {
+                    window.location.href = 'index.html'; // Redirect to JIT user page
+                } else if (validCredentials[username] ==="suren" && validCredentials[password] ==="suren" && role === 'admin') {
+                    window.location.href = 'admin.html'; // Redirect to Admin page
+                }
+            } else {
+                errorMessage.textContent = 'Incorrect username or password.';
+            }
+        });
+    </script>
+</body>
+</html>

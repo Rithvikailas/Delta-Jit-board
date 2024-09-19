@@ -1,0 +1,288 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set a background color and text color for the whole page */
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+  }
+  
+  /* Center and style the container */
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  /* Header styles */
+  header {
+    background: #0056b3;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+  }
+ 
+  header h1 {
+    margin: 0;
+  }
+  
+  /* Navigation styles */
+  nav ul {
+    list-style: none;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin: 0 15px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main content styles */
+  main {
+    padding: 2rem 0;
+  }
+  
+  h2 {
+    color: #0056b3;
+  }
+  
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  th {
+    background: #0056b3;
+    color: #fff;
+  }
+  
+  tr:nth-child(even) {
+    background: #f2f2f2;
+  }
+  
+  /* Form styles */
+  form {
+    margin: 1.5rem 0;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  input[type="text"], input[type="submit"] {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  input[type="submit"] {
+    background: #0056b3;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background: #004494;
+  }
+  #paginationControls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#paginationControls button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#paginationControls button:hover {
+    background-color: #0056b3;
+}
+
+#paginationControls button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#paginationControls span {
+    font-size: 18px;
+    margin: 0 10px;
+    color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  table-layout: fixed;
+  
+}
+
+table, th, td {
+  border: 1px solid #482828;
+  padding: 8px;
+  text-align: center;
+ 
+  
+}
+td{
+  font-weight: bold;
+  word-wrap: break-word;
+  
+}
+th {
+  background-color: #ce2fff;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fdfdfe;
+}
+
+thead th[colspan="6"] {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+    }
+  
+    nav ul {
+      text-align: center;
+    }
+  
+    nav ul li {
+      display: block;
+      margin: 0.5rem 0;
+    }
+  }
+  
+  /* General form styling */
+form {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 600px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Input fields */
+input[type="text"],
+select,
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Input fields focus state */
+input[type="text"]:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit button */
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Form container */
+.container {
+  padding: 20px;
+}
+
+/* Form elements spacing */
+form label,
+form input,
+form select {
+  margin-bottom: 15px;
+}
+
+/* Table cell styles based on material status */
+.received {
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Dark green text */
+  text-align: center;
+}
+
+.not-received {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red text */
+  text-align: center;
+}
+
+.partially-received {
+  background-color: #fff3cd; /* Light yellow */
+  color: #856404; /* Dark yellow text */
+  text-align: center;
+}
+
+.delete-btn{
+background-color: #ff0000;
+color: white;
+padding: 5px;
+border-radius: 12px;
+box-shadow: none;
+cursor: pointer;
+}
