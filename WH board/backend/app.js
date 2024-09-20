@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.use('/api/jit', require('./routes/jitRoutes'));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: 50000 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
