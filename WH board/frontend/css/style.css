@@ -286,3 +286,8 @@ border-radius: 12px;
 box-shadow: none;
 cursor: pointer;
 }
+
+.admin_th{
+  background-color: #08b70e;
+  
+}

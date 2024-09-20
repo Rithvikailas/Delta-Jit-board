@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="https://companieslogo.com/img/orig/2308.TW.D-9b98cca1.png?t=1720244490" type="image/x-icon">
+    <title>JIT</title>
+</head>
+<body>
+    <header>
+        <h1>JIT User</h1>
+    </header>
+    <main class="container">
+        <form id="jitForm">
+            <label for="line">Line:</label>
+            <select id="line" required>
+                <option value="AP_L01">AP_L01</option>
+                <option value="AP_L02">AP_L02</option>
+                <option value="AP_L03">AP_L03</option>
+                <option value="AP_L04">AP_L04</option>
+                <option value="AP_L05">AP_L05</option>
+                <option value="AP_L06">AP_L06</option>
+                <option value="AP_L07">AP_L07</option>
+                <option value="AP_L08">AP_L08</option>
+                <option value="UPS_L01">UPS_L01</option>
+            </select><br><br>
+            <label for="workOrder">Work Order:</label>
+            <input type="text" id="workOrder" required><br><br>
+
+            <label for="time">Time:</label>
+            <input type="datetime-local" id="time" required><br><br>
+
+            <label for="hiMaterial">HI Material Status:</label>
+            <select id="hiMaterial">
+                <option value="Received">Received</option>
+                <option value="Not Received">Not Received</option>
+                <option value="Partially Received">Partially Received</option>
+            </select><br><br>
+
+            <label for="assemblyMaterial">Assembly Material Status:</label>
+            <select id="assemblyMaterial">
+                <option value="Received">Received</option>
+                <option value="Not Received">Not Received</option>
+                <option value="Partially Received">Partially Received</option>
+            </select><br><br>
+
+            <label for="packingMaterial">Packing Material Status:</label>
+            <select id="packingMaterial">
+                <option value="Received">Received</option>
+                <option value="Not Received">Not Received</option>
+                <option value="Partially Received">Partially Received</option>
+            </select><br><br>
+
+            <input type="submit" id="submitButton" value="Submit">
+        </form>
+
+        <h2>Work Orders</h2>
+        <table id="workOrderTable">
+            <thead>
+                <tr>
+                    <th>Line</th>
+                    <th>Work Order</th>
+                    <th>Time</th>
+                    <th>HI Material</th>
+                    <th>Assembly Material</th>
+                    <th>Packing Material</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table data will be dynamically inserted here -->
+            </tbody>
+        </table>
+        <div id="paginationControls"></div>
+    </main>
+    <script src="js/main.js"></script>
+    <script>
+        // Function to get the current IST time
+        function getCurrentISTTime() {
+            const now = new Date();
+            const istOffset = 5.5 * 60 * 60 * 1000; // IST offset in milliseconds
+            const istDate = new Date(now.getTime() + istOffset);
+            
+            // Format the IST time to YYYY-MM-DDTHH:MM
+            return istDate.toISOString().slice(0, 16);
+        }
+    
+        // Update the input field with the current IST time
+        function updateISTTime() {
+            const updateTimeInput = document.getElementById('time');
+            if (updateTimeInput) {
+                updateTimeInput.value = getCurrentISTTime();
+            }
+        }
+    
+        // Set up the initial value and start the interval to update every second
+        document.addEventListener('DOMContentLoaded', () => {
+            updateISTTime(); // Set initial value
+            setInterval(updateISTTime, 1000); // Update every second
+        });
+    </script>
+    
+
+    
+
+</body>
+</html>
+

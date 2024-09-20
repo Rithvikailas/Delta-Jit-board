@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const WorkOrderSchema = new mongoose.Schema({
     workOrder: { type: String, required: true },
     line: { type: String, required: true },
-    time: { type: String, required: true },  // Storing time as string
+    time: { type: Date, required: true },
     hiMaterial: { type: String, required: true },
     assemblyMaterial: { type: String, required: true },
     packingMaterial: { type: String, required: true },

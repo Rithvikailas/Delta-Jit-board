@@ -3,19 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"> <!-- Make sure this path is correct -->
+    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="https://companieslogo.com/img/orig/2308.TW.D-9b98cca1.png?t=1720244490" type="image/x-icon">
-    <title>ADMIN</title>
+    <title>Admin</title>
 </head>
 <body>
     <header>
         <h1>Work Order Material Status</h1>
     </header>
     <main class="container">
-        <div id="tablesContainer">
-            <!-- Dynamic tables for each line will be inserted here -->
-        </div>
+        <table id="workOrderTable">
+            <thead>
+                <tr>
+                    <th>Line</th>
+                    <th>Work Order</th>
+                    <th>Time</th>
+                    <th>HI Material</th>
+                    <th>Assembly Material</th>
+                    <th>Packing Material</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </main>
-    <script src="js/main.js"></script>
+    <script>
+        async function populateTable() {
+            const tableBody = document.querySelector('#workOrderTable tbody');
+
+            if (tableBody) {
+                try {
+                    const response = await fetch('/api/jit/all');
+                    const data = await response.json();
+
+                    tableBody.innerHTML = ''; // Clear table body
+
+                    // Define the order of lines
+                    const linesOrder = [
+                        'AP_L01', 'AP_L02', 'AP_L03', 'AP_L04', 'AP_L05',
+                        'AP_L06', 'AP_L07', 'AP_L08', 'AP_L09',
+                        'UPS_L01'
+                    ];
+
+                    // Filter and sort data according to the specified order
+                    const orderedData = linesOrder.flatMap(line => 
+                        data.filter(order => order.line === line)
+                    );
+
+                    if (orderedData.length > 0) {
+                        orderedData.forEach((order) => {
+                            const row = `
+                                <tr>
+                                    <td>${order.line}</td>
+                                    <td>${order.workOrder}</td>
+                                    <td>${new Date(order.time).toLocaleString()}</td>
+                                    <td>${order.hiMaterial}</td>
+                                    <td>${order.assemblyMaterial}</td>
+                                    <td>${order.packingMaterial}</td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        });
+                    } else {
+                        tableBody.innerHTML = `<tr><td colspan="6">No data available</td></tr>`;
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+        }
+
+        // Automatically refresh the admin.html every 5 seconds
+        setInterval(populateTable, 5000);
+        window.onload = populateTable; // Load table on page load
+    </script>
 </body>
 </html>

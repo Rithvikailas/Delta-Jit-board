@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('#workOrderTable tbody');
     const paginationControls = document.querySelector('#paginationControls');
-    const rowsPerPage = 5; // Set the number of rows to display per page
+    const rowsPerPage = 5; // Number of rows per page
     let currentPage = 1;
 
     if (!tableBody) {
@@ -15,29 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fetch data from the server
             const response = await fetch('/api/jit/all');
 
-            // Check if the response is OK
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            // Parse the JSON data from the response
             const data = await response.json();
-            console.log('Fetched data:', data); // Log fetched data
+            console.log('Fetched data:', data);
 
-            // Clear existing rows in the table body
-            tableBody.innerHTML = '';
+            tableBody.innerHTML = ''; // Clear existing rows
 
-            // Calculate the starting and ending index for the current page
+            // Calculate the start and end index for the current page
             const startIndex = (page - 1) * rowsPerPage;
             const endIndex = Math.min(startIndex + rowsPerPage, data.length);
 
-            // Insert rows for the current page
             for (let i = startIndex; i < endIndex; i++) {
                 const order = data[i];
                 const row = `<tr>
                     <td>${order.line || 'N/A'}</td>
                     <td>${order.workOrder || 'N/A'}</td>
-                    <td>${order.time || 'N/A'}</td>
+                    <td>${new Date(order.time).toLocaleString()}</td>
                     <td>${order.hiMaterial || 'N/A'}</td>
                     <td>${order.assemblyMaterial || 'N/A'}</td>
                     <td>${order.packingMaterial || 'N/A'}</td>
@@ -61,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create pagination buttons and page indicators
     function updatePaginationControls(totalItems, page) {
         const totalPages = Math.ceil(totalItems / rowsPerPage);
-        paginationControls.innerHTML = ''; // Clear the existing pagination controls
+        paginationControls.innerHTML = '';
 
         // Previous button
         if (page > 1) {
@@ -141,17 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (container) {
             try {
-                const response = await fetch('http://localhost:5000/api/jit/all');
+                const response = await fetch('/api/jit/all');
                 const data = await response.json();
 
-                // Clear container before adding new tables
-                container.innerHTML = '';
+                container.innerHTML = ''; // Clear container
 
-                // Create a separate table for each line
                 const lines = [...new Set(data.map(order => order.line))]; // Extract unique lines
 
                 lines.forEach((line) => {
-                    // Create table structure
                     const table = document.createElement('table');
                     table.setAttribute('id', `table-${line}`);
                     table.innerHTML = `
@@ -168,17 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <th>Packing Material</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Table rows will be inserted here -->
-                        </tbody>
+                        <tbody></tbody>
                     `;
 
                     const tableBody = table.querySelector('tbody');
-
-                    // Filter data for this specific line
                     const filteredData = data.filter(order => order.line === line);
-                    
-                    // Populate the table with data for this line
+
                     if (filteredData.length > 0) {
                         filteredData.forEach((order) => {
                             const row = `
@@ -194,11 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             tableBody.innerHTML += row;
                         });
                     } else {
-                        const emptyRow = `<tr><td colspan="6">No data available for this line</td></tr>`;
-                        tableBody.innerHTML = emptyRow;
+                        tableBody.innerHTML = `<tr><td colspan="6">No data available for this line</td></tr>`;
                     }
 
-                    // Append table to the container
                     container.appendChild(table);
                 });
 
@@ -208,12 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Fetch and populate the tables on page load
     window.addEventListener('load', () => {
         populateTables();
         updateTable(currentPage); // Load the first page of the main table
     });
 
-    // Auto-refresh the tables every 30 seconds
-    setInterval(populateTables, 5000);  // 30,000 ms = 30 seconds
+    setInterval(populateTables, 5000); // Auto-refresh every 5 seconds
 });

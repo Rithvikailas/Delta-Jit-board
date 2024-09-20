@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
-
 const app = express();
 
 // Middleware
@@ -15,35 +14,16 @@ app.use(cors());
 // Serve static files from the 'frontend' directory
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Route to serve login.html at root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/login.html'));
+});
+
 // Routes
 app.use('/api/jit', require('./routes/jitRoutes'));
 
-
-app.get('/api/jit/all', async (req, res) => {
-  try {
-      const page = parseInt(req.query.page) || 1; // Default to page 1
-      const limit = parseInt(req.query.limit) || 5; // Default to 5 records per page
-
-      const skip = (page - 1) * limit;
-      const totalItems = await JITModel.countDocuments(); // Get total number of items
-      const totalPages = Math.ceil(totalItems / limit); // Calculate total pages
-
-      const jitData = await JITModel.find().skip(skip).limit(limit); // Get paginated data
-
-      res.json({
-          data: jitData,
-          totalPages,
-          currentPage: page
-      });
-  } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch data' });
-  }
-});
-
-
 // Connect to MongoDB
-const mongoURI = process.env.MONGODB;
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 

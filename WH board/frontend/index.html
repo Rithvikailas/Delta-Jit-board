@@ -1,175 +1,122 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- Make sure this path is correct -->
     <link rel="icon" href="https://companieslogo.com/img/orig/2308.TW.D-9b98cca1.png?t=1720244490" type="image/x-icon">
-    <title>JIT</title>
+    <title>Delta Electronics JIT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url("https://lh3.googleusercontent.com/p/AF1QipM7yOs8_7ZhFSOCCGXKZLTJiiyLKlQt4FGiel3k=s1360-w1360-h1020");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>JIT User</h1>
-    </header>
-    <main class="container">
-        <form id="jitForm">
-            <label for="line">Line:</label>
-            <select id="line" required>
-                <option value="AP_L01">AP_L01</option>
-                <option value="AP_L02">AP_L02</option>
-                <option value="AP_L03">AP_L03</option>
-                <option value="AP_L04">AP_L04</option>
-                <option value="AP_L05">AP_L05</option>
-                <option value="AP_L06">AP_L06</option>
-                <option value="AP_L07">AP_L07</option>
-                <option value="AP_L08">AP_L08</option>
-                <option value="UPS_L01">UPS_L01</option>
-            </select><br><br>
-            <label for="workOrder">Work Order:</label>
-            <input type="text" id="workOrder" required><br><br>
-
-            <label for="time">Update Time:</label>
-            <input type="datetime-local" id="time" required><br><br>
-
-            <label for="hiMaterial">HI Material Status:</label>
-            <select id="hiMaterial">
-                <option value="Received">Received</option>
-                <option value="Not Received">Not Received</option>
-                <option value="Partially Received">Partially Received</option>
-            </select><br><br>
-
-            <label for="assemblyMaterial">Assembly Material Status:</label>
-            <select id="assemblyMaterial">
-                <option value="Received">Received</option>
-                <option value="Not Received">Not Received</option>
-                <option value="Partially Received">Partially Received</option>
-            </select><br><br>
-
-            <label for="packingMaterial">Packing Material Status:</label>
-            <select id="packingMaterial">
-                <option value="Received">Received</option>
-                <option value="Not Received">Not Received</option>
-                <option value="Partially Received">Partially Received</option>
-            </select><br><br>
-
-            <input type="submit" id="submitButton" value="Submit">
+    <div class="container">
+        <h1>JIT SYSTEM LOGIN</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" required>
+                    <option value="jit">JIT User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <input type="submit" value="Login">
+            <p class="error" id="errorMessage"></p>
         </form>
+    </div>
 
-        <h2>Work Orders</h2>
-        <table id="workOrderTable">
-            <thead>
-                <tr>
-                    <th>Line</th>
-                    <th>Work Order</th>
-                    <th>Update Time</th>
-                    <th>HI Material</th>
-                    <th>Assembly Material</th>
-                    <th>Packing Material</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table data will be dynamically inserted here -->
-            </tbody>
-        </table>
-        <div id="paginationControls"></div>
-    </main>
-    <script src="js/main.js"></script>
     <script>
-// document.addEventListener('DOMContentLoaded', () => {
-//     const form = document.getElementById('jitForm');
-//     const submitButton = document.getElementById('submitButton');
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
 
-//     if (form) {
-//         form.addEventListener('submit', async (e) => {
-//             e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            const errorMessage = document.getElementById('errorMessage');
 
-//             // Disable the submit button to prevent multiple submissions
-//             submitButton.disabled = true;
+            // Dummy credentials check (replace with real authentication)
+            const validCredentials = {
+                'jit': 'jit',
+                'suren': 'suren'
+            };
 
-//             const workOrder = document.getElementById('workOrder').value;
-//             const line = document.getElementById('line').value;
-//             const time = document.getElementById('time').value;
-//             const hiMaterial = document.getElementById('hiMaterial').value;
-//             const assemblyMaterial = document.getElementById('assemblyMaterial').value;
-//             const packingMaterial = document.getElementById('packingMaterial').value;
-
-//             try {
-//                 const response = await fetch('/api/jit/update', {
-//                     method: 'POST',
-//                     headers: {
-//                         'Content-Type': 'application/json'
-//                     },
-//                     body: JSON.stringify({ workOrder, line, time, hiMaterial, assemblyMaterial, packingMaterial })
-//                 });
-//                 const result = await response.json();
-
-//                 // Show a success message
-//                 alert(result.message || 'Success');
-
-//                 // Update the table without refreshing the page
-//                 updateTable();
-
-//                 // Re-enable the submit button
-//                 submitButton.disabled = false;
-
-//             } catch (error) {
-//                 console.error('Error:', error);
-
-//                 // Re-enable the submit button
-//                 submitButton.disabled = false;
-//             }
-//         });
-
-        // Function to update the table with latest data
-        // async function updateTable() {
-        //     try {
-        //         const response = await fetch('/api/jit/all');
-        //         const data = await response.json();
-
-        //         // Clear the existing table data
-        //         const tableBody = document.querySelector('#workOrderTable tbody');
-        //         tableBody.innerHTML = '';
-
-        //         // Populate the table with new data
-        //         data.forEach(order => {
-        //             const row = `
-        //                 <tr>
-        //                     <td>${order.line}</td>
-        //                     <td>${order.workOrder}</td>
-        //                     <td>${new Date(order.time).toLocaleString()}</td>
-        //                     <td>${order.hiMaterial}</td>
-        //                     <td>${order.assemblyMaterial}</td>
-        //                     <td>${order.packingMaterial}</td>
-        //                     <td><button class="delete-btn" data-id="${order._id}">Delete</button></td>
-        //                 </tr>`;
-        //             tableBody.innerHTML += row;
-        //         });
-
-        //         // Add event listeners for delete buttons
-        //         document.querySelectorAll('.delete-btn').forEach(button => {
-        //             button.addEventListener('click', async (e) => {
-        //                 const id = e.target.getAttribute('data-id');
-        //                 try {
-        //                     await fetch(`/api/jit/delete/${id}`, { method: 'DELETE' });
-        //                     alert('Record deleted successfully');
-        //                     updateTable(); // Refresh table data
-        //                 } catch (error) {
-        //                     console.error('Error deleting record:', error);
-        //                 }
-        //             });
-        //         });
-        //     } catch (error) {
-        //         console.error('Error updating table:', error);
-        //     }
-        // }
-
-        // // Initial table load
-        // updateTable();
-
-        // // Refresh the table data every 5 seconds
-        // setInterval(updateTable, 5000);
-    
-</script>
+            if (validCredentials[username] === password) {
+                if (role === 'jit') {
+                    window.location.href = 'jit.html'; // Redirect to JIT user page
+                } else if (validCredentials[username] ==="suren" && validCredentials[password] ==="suren" && role === 'admin') {
+                    window.location.href = 'admin.html'; // Redirect to Admin page
+                }
+            } else {
+                errorMessage.textContent = 'Incorrect username or password.';
+            }
+        });
+    </script>
 </body>
 </html>
+

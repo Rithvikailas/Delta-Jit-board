@@ -7,11 +7,8 @@ router.post('/update', async (req, res) => {
     const { workOrder, line, time, hiMaterial, assemblyMaterial, packingMaterial } = req.body;
 
     try {
-        // Find existing work order
         const existingWorkOrder = await WorkOrder.findOne({ workOrder });
-        
         if (existingWorkOrder) {
-            // Update existing work order
             existingWorkOrder.line = line;
             existingWorkOrder.time = time;
             existingWorkOrder.hiMaterial = hiMaterial;
@@ -19,11 +16,9 @@ router.post('/update', async (req, res) => {
             existingWorkOrder.packingMaterial = packingMaterial;
             await existingWorkOrder.save();
         } else {
-            // Create new work order
             const newWorkOrder = new WorkOrder({ workOrder, line, time, hiMaterial, assemblyMaterial, packingMaterial });
             await newWorkOrder.save();
         }
-
         res.status(200).json({ message: 'Work Order updated successfully' });
     } catch (error) {
         console.error('Error creating or updating Work Order:', error);
@@ -45,19 +40,12 @@ router.get('/all', async (req, res) => {
 // Delete a work order
 router.delete('/delete/:id', async (req, res) => {
     try {
-        const result = await WorkOrder.findByIdAndDelete(req.params.id);
-        if (result) {
-            res.status(200).json({ message: 'Work Order deleted successfully' });
-        } else {
-            res.status(404).json({ message: 'Work Order not found' });
-        }
+        await WorkOrder.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: 'Work Order deleted successfully' });
     } catch (error) {
         console.error('Error deleting Work Order:', error);
         res.status(500).json({ error: 'Error deleting Work Order' });
     }
 });
-
-
-
 
 module.exports = router;
