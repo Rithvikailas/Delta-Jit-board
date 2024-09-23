@@ -103,13 +103,14 @@
             // Dummy credentials check (replace with real authentication)
             const validCredentials = {
                 'jit': 'jit',
-                'suren': 'suren'
+                'suren': 'suren',
+                'admin':'admin'
             };
 
             if (validCredentials[username] === password) {
                 if (role === 'jit') {
                     window.location.href = 'jit.html'; // Redirect to JIT user page
-                } else if (validCredentials[username] ==="suren" && validCredentials[password] ==="suren" && role === 'admin') {
+                } else if (validCredentials[username] ==="admin" && validCredentials[password] ==="admin" && role === 'admin') {
                     window.location.href = 'admin.html'; // Redirect to Admin page
                 }
             } else {
